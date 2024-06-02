@@ -2,3 +2,105 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    body {
+      @apply dark:bg-gray-800 bg-white; /* Set background colors */
+    }
+  }
+
+/* styles.css */
+
+/* Reset default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set a global font family (adjust as needed) */
+  body {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Dark mode styles */
+  .dark-mode {
+    background-color: #1a202c;
+    color: #ffffff;
+  }
+  
+  /* Header styles */
+  .header {
+    background-color: #1a202c;
+    color: #ffffff;
+    padding: 1rem;
+  }
+  
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  /* Navigation menu */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nav ul {
+    list-style: none;
+  }
+  
+  .nav li {
+    margin-right: 1rem;
+  }
+  
+  .nav a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .nav a:hover {
+    color: #fbd38d;
+  }
+  
+  /* Main content section */
+  .main-content {
+    padding: 2rem;
+  }
+  
+  /* Services section */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .service-card {
+    background-color: #fbd38d;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    text-align: center;
+  }
+  
+  .service-card h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  /* Footer styles */
+  .footer {
+    background-color: #1a202c;
+    color: #ffffff;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 768px) {
+    .services {
+      grid-template-columns: 1fr;
+    }
+  }
+  
