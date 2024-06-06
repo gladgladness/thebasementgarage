@@ -33,7 +33,10 @@ export default function Form(){
           <label htmlFor="email">Email:</label>
           <input className="min-w-40 max-w-60 rounded outline outline-cyan-700" type="text" id="email" name="email" />
           
-          <button className="min-w-10 max-w-20 rounded outline outline-cyan-400 hover: bg-violet-300" type="submit">Submit</button>
-     </form>
+          <div>
+        <button type="button" class="inline-block rounded-full bg-sky-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-sky-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-sky-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-sky-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0">Submit</button>
+          </div>
+      </form>
+    
       )
 }
