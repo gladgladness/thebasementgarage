@@ -2,6 +2,7 @@
  
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import ThemeButton from './themebutton'
  
 export function Links() {
   const pathname = usePathname()
@@ -34,7 +35,11 @@ export function Links() {
             Invoices
           </Link>
         </li>
+        
+          <ThemeButton className="justify-end" />
+        
       </ul>
+      
     </nav>
 
   )
