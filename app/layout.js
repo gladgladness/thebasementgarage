@@ -1,9 +1,7 @@
-import { Metadata } from "next";
-import { Inter } from 'next/font/google'
+
 import { ThemeProvider } from 'next-themes'; 
 import "./globals.css";
-import DarkModeToggle from "./components/themebutton";
-import ThemeButton from "./components/themebutton";
+
 
 
 export const metadata = {

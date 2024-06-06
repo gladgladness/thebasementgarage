@@ -1,4 +1,3 @@
-import { Links } from "../components/links"
 
 export default function Dashboard(){
     return (

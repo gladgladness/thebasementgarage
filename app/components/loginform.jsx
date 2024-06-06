@@ -1,31 +1,73 @@
-
+'use client'  
+import { useFormState } from 'react-dom';
+import LoginButton from './loginbutton';
+ 
 export default function LoginForm() {
+  const authenticate = '';
+  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+ 
   return (
-    <div className="block max-w-sm rounded-lg bg-white p-6 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700">
-      <form>
-        {/* <!--E-mail input--> */}
-        <input
-          type="email"
-          label="Email address"
-          placeholder="Email Address"
-        >
-          
-        </input>
-
-        {/* <!--Password input--> */}
-        <input
-          type="password"
-          label="Password"
-          placeholder="Password"
-          className="mt-12 mb-6"
-        ></input>
-
-        
-        {/* <!--Submit button--> */}
-        <div>
-        <button type="button" class="inline-block rounded-full bg-sky-500 text-neutral-50 shadow-[0_4px_9px_-4px_rgba(51,45,45,0.7)] hover:bg-sky-600 hover:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] focus:bg-sky-800 focus:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] active:bg-sky-700 active:shadow-[0_8px_9px_-4px_rgba(51,45,45,0.2),0_4px_18px_0_rgba(51,45,45,0.1)] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0">Submit</button>
+    <form action={dispatch} className="space-y-3 w-max h-max">
+      <div className="flex-1 rounded-lg bg-gray-100 px-6 pb-4 pt-8">
+        <h1 className= "mb-3 text-2xl dark:text-black">
+          Please log in to continue.
+        </h1>
+        <div className="w-full">
+          <div>
+            <label
+              className="mb-3 mt-5 block text-base font-medium text-gray-900"
+              htmlFor="email"
+            >
+              Email
+            </label>
+            <div className="relative">
+              <input
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter your email address"
+                required
+              />
+             
+            </div>
           </div>
-      </form>
-    </div>
+          <div className="mt-4">
+            <label
+              className="mb-3 mt-5 block text-base font-medium text-gray-900"
+              htmlFor="password"
+            >
+              Password
+            </label>
+            <div className="relative">
+              <input
+                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+                id="password"
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                required
+                minLength={6}
+              />
+              
+            </div>
+          </div>
+        </div>
+        <LoginButton />
+        <div
+          className="flex h-8 items-end space-x-1"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          {errorMessage && (
+            <>
+              
+              <p className="text-sm text-red-500">{errorMessage}</p>
+            </>
+          )}
+        </div>
+      </div>
+    </form>
   );
 }
+ 
