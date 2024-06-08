@@ -1,9 +1,9 @@
 'use client'  
 import { useFormState } from 'react-dom';
 import LoginButton from './loginbutton';
- 
+import { authenticate } from '@/actions'; 
+
 export default function LoginForm() {
-  const authenticate = '';
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
  
   return (
@@ -47,7 +47,7 @@ export default function LoginForm() {
                 name="password"
                 placeholder="Enter password"
                 required
-                minLength={6}
+                minLength={4}
               />
               
             </div>
@@ -67,7 +67,8 @@ export default function LoginForm() {
           )}
         </div>
       </div>
+     
     </form>
-  );
+    
+   );
 }
- 
