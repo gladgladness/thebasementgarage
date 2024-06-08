@@ -1,8 +1,5 @@
-
 import { ThemeProvider } from 'next-themes'; 
 import "./globals.css";
-
-
 
 export const metadata = {
   title: "The Basement Garage",
@@ -17,12 +14,10 @@ export default function RootLayout({children, pageProps}) {
         <body>
           <ThemeProvider attribute="class">
             {children}
-          </ThemeProvider>
+            </ThemeProvider>
         </body>
         
       </html>
     
-    
-     
   );
 }

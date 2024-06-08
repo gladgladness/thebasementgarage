@@ -7,7 +7,7 @@ export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
  
   return (
-    <form action={dispatch} className="space-y-3 w-max h-max">
+    <form action={dispatch} className="space-y-3 w-max h-max py-0">
       <div className="flex-1 rounded-lg bg-gray-100 px-6 pb-4 pt-8">
         <h1 className= "mb-3 text-2xl dark:text-black">
           Please log in to continue.
