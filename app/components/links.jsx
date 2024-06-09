@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import ThemeButton from './themebutton'
+import SignoutButton from './signoutbutton'
  
 export function Links() {
   const pathname = usePathname()
@@ -35,9 +36,12 @@ export function Links() {
             Invoices
           </Link>
         </li>
-        
-          <ThemeButton className="justify-end" />
-        
+        <li className="hover:bg-gray-400">
+          <Link className={`link ${pathname === '/about' ? 'active' : ''}`} >
+            <SignoutButton/>
+          </Link>
+        </li>
+               
       </ul>
       
     </nav>
