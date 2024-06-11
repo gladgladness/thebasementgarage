@@ -1,7 +1,6 @@
 'use server'
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
- 
 
 export async function authenticate(
   prevState,
@@ -22,3 +21,4 @@ export async function authenticate(
     throw error;
   }
 }
+

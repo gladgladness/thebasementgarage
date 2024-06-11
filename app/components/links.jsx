@@ -2,8 +2,6 @@
  
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import ThemeButton from './themebutton'
-import SignoutButton from './signoutbutton'
  
 export function Links() {
   const pathname = usePathname()
@@ -12,35 +10,31 @@ export function Links() {
     <nav>
       <ul className="bg-sky-600 flex justify-center space-x-8">
         <li className="hover:bg-gray-400">
-          <Link className={`link ${pathname === '/' ? 'active' : ''}`} href="/dashboard">
+          <Link className={`link ${pathname === '/dashboard' ? 'active' : ''}`} href="/dashboard">
             Dashboard
           </Link>
           </li>
           <li className="hover:bg-gray-400 flex">
-          <Link className={`link ${pathname === '/' ? 'active' : ''}`} href="/dashboard/vehicle-registration">
+          <Link className={`link ${pathname === '/dashboard/vehicle-registration' ? 'active' : ''}`} href="/dashboard/vehicle-registration">
             Vehicle Registration
           </Link>
           </li>
           <li className="hover:bg-gray-400">
-          <Link className={`link ${pathname === '/' ? 'active' : ''}`} href="/dashboard/vehicle-routines">
+          <Link className={`link ${pathname === '/dashboard/vehicle-routines' ? 'active' : ''}`} href="/dashboard/vehicle-routines">
             Vehicle Routines
           </Link>
         </li>
         <li className="hover:bg-gray-400">
-          <Link className={`link ${pathname === '/about' ? 'active' : ''}`} href="/dashboard/vehicle-scheduling">
+          <Link className={`link ${pathname === '/dashboard/vehicle-scheduling' ? 'active' : ''}`} href="/dashboard/vehicle-scheduling">
             Vehicle Scheduling
           </Link>
         </li>
         <li className="hover:bg-gray-400">
-          <Link className={`link ${pathname === '/about' ? 'active' : ''}`} href="/dashboard/invoices">
+          <Link className={`link ${pathname === '/dashboard/invoices' ? 'active' : ''}`} href="/dashboard/invoices">
             Invoices
           </Link>
         </li>
-        <li className="hover:bg-gray-400">
-          <Link className={`link ${pathname === '/about' ? 'active' : ''}`} >
-            <SignoutButton/>
-          </Link>
-        </li>
+       
                
       </ul>
       
