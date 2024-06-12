@@ -1,11 +1,11 @@
-'use server'
+"use server";
 
 import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { client } from "./backend/db";
-//import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 async function getUser(email) {
   try {
@@ -23,7 +23,6 @@ async function getUser(email) {
   }
 }
 
-
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
@@ -36,25 +35,34 @@ export const { auth, signIn, signOut } = NextAuth({
           })
           .safeParse(credentials);
 
+        console.log({ parsedCredentials: parsedCredentials });
+
         if (!parsedCredentials.success) {
           console.log(credentials, "Invalid credentials");
           return null;
         }
+
         const { email, password } = parsedCredentials.data;
-        const user = await getUser(email);
-        console.log(user);
+        const user = await getUser(email).catch((e) =>
+          console.log("Invalid user", e)
+        );
+        console.log({ user: user });
+
+        if (!user) {
+          console.log("passwords do not match/ invalid credentials");
+          return null;
+        }
+
+        const passwordsMatch = await bcrypt.compare(password, user.password);
+
+        if (!passwordsMatch) {
+           return null;
+         }
+
         return user;
-
-        //if (!user) return null;
-        //return user;
-        //const passwordsMatch = await bcrypt.compare(password, user.password);
-
-       // if (passwordsMatch) return user;
-
-       // console.log("passwords do not match");
-       // return;
       },
     }),
   ],
 });
+
 
