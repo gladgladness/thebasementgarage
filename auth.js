@@ -39,6 +39,7 @@ export const { auth, signIn, signOut } = NextAuth({
 
         if (!parsedCredentials.success) {
           console.log(credentials, "Invalid credentials");
+
           return null;
         }
 

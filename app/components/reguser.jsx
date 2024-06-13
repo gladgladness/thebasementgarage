@@ -1,10 +1,12 @@
 'use client'  
 import { useFormState, useFormStatus } from 'react-dom';
 import { register } from '@/backend/actions'; 
+import { usePathname } from 'next/navigation'
+import Link from 'next/link';
 
 export default function RegUser() {
   const [errorMessage, formAction] = useFormState(register, null);
- 
+   
   return (
     <form action={formAction} className="space-y-3 w-max h-max py-0">
       <div className="flex-1 rounded-lg bg-gray-100 px-6 pb-4 pt-8">
@@ -116,12 +118,24 @@ export default function RegUser() {
 
 function SignUpButton() {
     const { pending } = useFormStatus();
+    const pathname = usePathname();
    
     return (
-      <div>
-      <button className=" inline-flex  mt-3  rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" aria-disabled={pending}>
-       Register
-      </button>
-      </div>
+      <>
+        <div>
+          <button className=" inline-flex  mt-3  rounded bg-blue-500 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-blue-600 hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-blue-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]" aria-disabled={pending}>
+          Register
+          </button>
+        </div>
+        <div className='text-black py-2'>
+        <p>
+          <Link className={`link ${pathname === './' ? 'active' : ''} underline hover:text-blue-700 font-semibold`} href="./">
+                    Click Here
+          </Link>
+                  &nbsp; to go back to log in.
+            </p>
+        </div>
+      
+      </>
     );
   }

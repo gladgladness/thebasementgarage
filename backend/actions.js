@@ -2,7 +2,6 @@
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { z } from "zod";
-import { redirect } from 'next/navigation';
 import bcrypt from 'bcrypt';
 import { client } from './db';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,7 +18,8 @@ export async function authenticate(prevState, formData) {
       switch (error.type) {
         case "CredentialsSignin":
         case "CallbackRouteError":
-          return "Invalid credentials.";
+          return "Invalid credentials / User does not exist.";
+        
         default:
           return "Something went wrong.";
       }
@@ -60,26 +60,33 @@ const RegisterUser = z.object({
     const { fname, lname, email, password } = validatedFields.data;
     const id= uuidv4();
     
-    console.log("done!!");
-   
     await TableUsers();
     try{ 
+      
+      const user = await client.query('SELECT * FROM users WHERE email = $1', [email]);
+      try {
+        if (user.rowCount>=1) {
+          return `User ${email} already exists`;
+           }
+      }catch (error) {
+          console.error('Error checking email existence:', error);
+          return false;
+      }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
     await client.query(`
     INSERT INTO users (id, firstName, lastName, email, password)
     VALUES ($1, $2, $3, $4, $5)
-    ON CONFLICT (id) DO NOTHING;
-  `,  [id, fname, lname, email, hashedPassword]);
+    ON CONFLICT (id) DO NOTHING;`, 
+    [id, fname, lname, email, hashedPassword]);
 
-    console.log(`Seeded user ${fname}`);
-    return("Registered successfully. Returning you to the log in page...");
+    console.log(`Seeded user ${email}`);
+    return(`Registered user ${email} successfully.`);
+    
     }catch(error){
       console.error('Error seeding users:', error);
-     console.error ({ errorType: error.type });
-      
+      console.error ({ errorType: error.type });
     }
-    redirect('./');
-   
   }
   
 
