@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import { client } from './db';
 import { v4 as uuidv4 } from 'uuid';
 
+
 export async function authenticate(prevState, formData) {
   try {
     await signIn("credentials", formData);
