@@ -51,7 +51,6 @@ const RegisterUser = z.object({
       email: formData.get('email'),
       password: formData.get('password'),
       });
-  
     // If form validation fails, return errors early. Otherwise, continue.
     if (!validatedFields.success) {
       return "Missing Fields. Failed to Create Account.";
@@ -81,8 +80,9 @@ const RegisterUser = z.object({
     [id, fname, lname, email, hashedPassword]);
 
     console.log(`Seeded user ${email}`);
-    return(`Registered user ${email} successfully.`);
     
+    return(`Registered user ${email} successfully.`);
+        
     }catch(error){
       console.error('Error seeding users:', error);
       console.error ({ errorType: error.type });

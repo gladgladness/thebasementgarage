@@ -1,5 +1,5 @@
 import { Links } from "../components/links";
-//import SignoutButton from "@/auth.config";
+import SignOutButton from "../components/signoutbutton";
 import ThemeButton from "../components/themebutton";
 
 export default function DashboardLayout({children}) {
@@ -7,7 +7,7 @@ export default function DashboardLayout({children}) {
       <html lang="en">
         <body>
         <div>
-          <Links />  <ThemeButton /> 
+          <Links />  <ThemeButton /> <SignOutButton/>
         </div>
         {children}
         </body>

@@ -6,9 +6,9 @@ import Link from 'next/link';
 
 export default function RegUser() {
   const [errorMessage, formAction] = useFormState(register, null);
-   
+
   return (
-    <form action={formAction} className="space-y-3 w-max h-max py-0">
+    <form  action={formAction} className="space-y-3 w-max h-max py-0">
       <div className="flex-1 rounded-lg bg-gray-100 px-6 pb-4 pt-8">
         <h1 className= "mb-3 text-2xl dark:text-black">
           New user? Register below:
@@ -109,16 +109,16 @@ export default function RegUser() {
           )}
         </div>
         <SignUpButton />
+        
       </div>
      </div>
     </form>
-    
    );
 }
 
 function SignUpButton() {
     const { pending } = useFormStatus();
-    const pathname = usePathname();
+    const pathname = usePathname(); 
    
     return (
       <>
