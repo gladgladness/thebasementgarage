@@ -35,31 +35,6 @@
     font-weight: 700;
   }
   
-  /* Navigation menu */
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .nav ul {
-    list-style: none;
-  }
-  
-  .nav li {
-    margin-right: 1rem;
-  }
-  
-  .nav a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-  }
-  
-  .nav a:hover {
-    color: #fbd38d;
-  }
-  
   /* Main content section */
   .main-content {
     padding: 2rem;

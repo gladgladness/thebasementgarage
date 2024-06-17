@@ -49,7 +49,7 @@ export default function ThemeButton() {
     return ( mounted ? 
         <div>
           <label
-              className="inline-block pl-[0.15rem] hover:cursor-pointer font-extrabold"
+              className="inline-block pl-[0.15rem] hover:cursor-pointer font-normal"
               htmlFor="flexSwitchCheckDefault">
             { buttonIcon(theme) }
         </label>
