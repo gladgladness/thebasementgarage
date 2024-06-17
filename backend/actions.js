@@ -117,4 +117,109 @@ const RegisterUser = z.object({
   
 }
 
- 
+const RegisterVehicle = z.object({
+  manufacturer: z.string({
+    invalid_type_error: 'Please enter the vehicle manufacturer.',
+  }),
+  model: z.string({
+    invalid_type_error: 'Please enter a vehicle model.',
+  }),
+  regNo: z.string({
+    invalid_type_error: 'Please enter a reg No.',
+  }),
+  chassis: z.string({
+    invalid_type_error: 'Please enter a chassis No.',
+  }),
+  yom: z.string({
+    invalid_type_error: 'Please enter a valid year.',
+  }),
+  ownerName: z.string({
+    invalid_type_error: 'Please enter a name.',
+  }),
+  phone: z.string({
+    invalid_type_error: 'Please enter a phone number.',
+  }),
+  email: z.string({
+    invalid_type_error: 'Please enter a valid email address.',
+  }),
+  });
+
+
+export default async function registerCar(prevState, formData) {
+  'use server'
+  const validatedFields = RegisterVehicle.safeParse({
+    manufacturer: formData.get('manufacturer'),
+    model: formData.get('model'),
+    regNo: formData.get('regNo'),
+    chassis: formData.get('chassis'),
+    yom: formData.get('yom'),
+    ownerName: formData.get('ownerName'),
+    phone: formData.get('phone'),
+    email: formData.get('email'),
+  })
+  if (!validatedFields.success) {
+    return "Missing Fields. Failed to Register Vehicle.";
+  }
+  const { manufacturer, model, regNo, chassis, yom, ownerName, phone, email } = validatedFields.data;
+  const id= uuidv4();
+  
+  await TableVehicles();
+
+  try{ 
+    const vehicle = await client.query('SELECT * FROM vehicles WHERE regNo = $1 OR chassis = $2', [regNo, chassis]);
+    try {
+      if (vehicle.rowCount>=1) {
+        return `Vehicle ${regNo} or chassis No. ${chassis} already exists`;
+      }
+    }catch (error) {
+        console.error('Error checking vehicle existence:', error);
+        return false;
+    }
+  
+  
+  await client.query(`
+  INSERT INTO vehicles (id, manufacturer, model, regNo, chassis, yom, ownerName, phone, email)
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  ON CONFLICT (id) DO NOTHING;`, 
+  [id, manufacturer, model, regNo, chassis, yom, ownerName, phone, email]);
+
+  console.log(`Seeded vehicle ${regNo}`);
+  
+  return(`Registered vehicle ${regNo} successfully.`);
+       
+  }catch(error){
+    console.error('Error seeding vehicles:', error);
+    console.error ({ errorType: error.type });
+  }
+
+}
+
+async function TableVehicles() {
+  try {
+        
+   await client.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+    // Create the "users" table if it doesn't exist
+        const createTable = await client.query(`CREATE TABLE IF NOT EXISTS vehicles (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        manufacturer VARCHAR(255) NOT NULL,
+        model VARCHAR(255) NOT NULL,
+        regNo VARCHAR(255) NOT NULL UNIQUE,
+        chassis VARCHAR(255) NOT NULL UNIQUE,
+        yom INT NOT NULL,
+        ownerName VARCHAR(255) NOT NULL,
+        phone VARCHAR(255) NOT NULL,
+        email TEXT
+      );`);
+
+    console.log(`Created "vehicles" table`);
+      
+  return {
+    createTable
+  };
+  
+} catch (error) {
+  console.error('Error creating table "vehicles":', error);
+  throw error;
+}
+
+}
