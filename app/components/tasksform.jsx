@@ -33,11 +33,11 @@ export default function TaskForm() {
         regNo: selectedVehicle.regNo,
         task: newTask,
         isComplete: false,
-        date: new Date().toISOString(),
+        date: new Date().toLocaleDateString(),
     };
 
   try{
-    const response = await fetch('/vehicle-routines/api/route', {
+    const response = await fetch('/api/route', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -55,9 +55,11 @@ export default function TaskForm() {
   if (contentType && contentType.includes('application/json')) {
     
       const newTask = await response.json();
+      console.log('Tasks are:', newTask)
       setTasks([...tasks, newTask]);
+      
   } else {
-      throw new Error('Response is not JSON');
+      throw new Error('Response is not JSON', ReferenceError);
   }
 } catch (error) {
   console.error('Failed to add task:', error);

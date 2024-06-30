@@ -258,5 +258,3 @@ export async function getVehicleData() {
   }
 }
 
- 
-   
