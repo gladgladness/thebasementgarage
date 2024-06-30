@@ -9,7 +9,7 @@ export const metadata = {
 export default function RootLayout({children, pageProps}) {
   return (
     
-      <html lang="en" {...pageProps} className="font-serif">
+      <html lang="en" className="font-serif">
         
         <body>
           <ThemeProvider attribute="class">

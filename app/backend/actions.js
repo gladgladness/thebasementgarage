@@ -6,7 +6,6 @@ import bcrypt from 'bcrypt';
 import { client } from './db';
 import { v4 as uuidv4 } from 'uuid';
 
-
 export async function authenticate(prevState, formData) {
   try {
     await signIn("credentials", formData);
@@ -66,7 +65,7 @@ const RegisterUser = z.object({
       const user = await client.query('SELECT * FROM users WHERE email = $1', [email]);
       try {
         if (user.rowCount>=1) {
-          return `User ${email} already exists`;
+          return (`User ${email} already exists`);
            }
       }catch (error) {
           console.error('Error checking email existence:', error);
@@ -223,3 +222,41 @@ async function TableVehicles() {
 }
 
 }
+
+
+ export async function TableTasks() {
+  try {
+        
+   await client.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
+    // Create the "tasks" table if it doesn't exist
+        const createTable = await client.query(`CREATE TABLE IF NOT EXISTS tasks (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        taskname VARCHAR(255) NOT NULL,
+        complete BOOLEAN
+      );`);
+
+    console.log(`Created "tasks" table`);
+      
+  return {
+    createTable
+  };
+  
+} catch (error) {
+  console.error('Error creating table "tasks":', error);
+  throw error;
+}
+
+}
+
+export async function getVehicleData() {
+  try {
+    const result = await client.query('SELECT * FROM vehicles');
+    return result.rows;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error; 
+  }
+}
+
+ 
+   

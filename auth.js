@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
-import { client } from "./backend/db";
+import { client } from "./app/backend/db";
 import bcrypt from "bcrypt";
 
 async function getUser(email) {
@@ -57,13 +57,11 @@ export const { auth, signIn, signOut } = NextAuth({
         const passwordsMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordsMatch) {
-           return null;
-         }
+          return null;
+        }
 
         return user;
       },
     }),
   ],
 });
-
-
